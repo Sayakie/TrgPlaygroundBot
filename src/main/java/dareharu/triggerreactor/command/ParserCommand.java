@@ -56,28 +56,28 @@ public final class ParserCommand extends ListenerAdapter {
             final var serializedContent = serializeNode(root, showColRow);
 
             event.reply("""
-# Input:
-```js
-{content}
-```
+                            # Input:
+                            ```js
+                            {content}
+                            ```
 
-# Output:
-```q
-{output}
-```
-""".replace("{content}", content).replace("{output}", serializedContent)).queue();
+                            # Output:
+                            ```q
+                            {output}
+                            ```
+                            """.replace("{content}", content).replace("{output}", serializedContent)).queue();
         } catch (final ParserException | LexerException | IOException e) {
             event.reply("""
-# Input:
-```js
-{content}
-```
+                            # Input:
+                            ```js
+                            {content}
+                            ```
 
-# Error
-```ahk
-{cause}
-```
-""".replace("{content}", content).replace("{cause}", ExceptionUtils.handleException(e))).queue();
+                            # Error
+                            ```ansi
+                            \u001B[0;31m឵឵{cause}
+                            ```
+                            """.replace("{content}", content).replace("{cause}", ExceptionUtils.handleException(e))).queue();
         }
     }
 

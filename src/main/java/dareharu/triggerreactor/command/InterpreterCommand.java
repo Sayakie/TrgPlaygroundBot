@@ -1,5 +1,6 @@
 package dareharu.triggerreactor.command;
 
+import dareharu.triggerreactor.util.AnsiColorUtils;
 import dareharu.triggerreactor.util.ExceptionUtils;
 import dareharu.triggerreactor.util.PlaygroundInterpreterUtils;
 import dareharu.triggerreactor.util.PlaygroundTaskSupervisor;
@@ -63,29 +64,32 @@ public final class InterpreterCommand extends ListenerAdapter {
             final var sb = new StringBuilder();
             interpreter.startWithContext(sb, t);
 
-            event.reply("""
-# Input:
-```js
-{content}
-```
+            final var output$raw = sb.isEmpty() ? "No output" : sb.toString();
+            final var output = AnsiColorUtils.bukkitColorToAnsiColor(output$raw);
 
-# Output:
-```q
-{output}
-```
-""".replace("{content}", content).replace("{output}", sb.toString())).queue();
+            event.reply("""
+                            # Input:
+                            ```js
+                            {content}
+                            ```
+
+                            # Output:
+                            ```ansi
+                            {output}
+                            ```
+                            """.replace("{content}", content).replace("{output}", output)).queue();
         } catch (final InterpreterException | ParserException | LexerException | IOException e) {
             event.reply("""
-# Input:
-```js
-{content}
-```
+                            # Input:
+                            ```js
+                            {content}
+                            ```
 
-# Error
-```ahk
-{cause}
-```
-""".replace("{content}", content).replace("{cause}", ExceptionUtils.handleException(e))).queue();
+                            # Error
+                            ```ansi
+                            \u001B[0;31m឵឵{cause}
+                            ```
+                            """.replace("{content}", content).replace("{cause}", ExceptionUtils.handleException(e))).queue();
         }
     }
 

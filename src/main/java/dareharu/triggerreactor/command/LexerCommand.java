@@ -52,28 +52,28 @@ public final class LexerCommand extends ListenerAdapter {
             }
 
             event.reply("""
-# Input:
-```js
-{content}
-```
+                            # Input:
+                            ```js
+                            {content}
+                            ```
 
-# Output:
-```ml
-{output}
-```
-""".replace("{content}", content).replace("{output}", sb.toString())).queue();
+                            # Output:
+                            ```ml
+                            {output}
+                            ```
+                            """.replace("{content}", content).replace("{output}", sb.toString())).queue();
         } catch (final LexerException | IOException e) {
             event.reply("""
-# Input:
-```js
-{content}
-```
+                            # Input:
+                            ```js
+                            {content}
+                            ```
 
-# Error
-```ahk
-{cause}
-```
-""".replace("{content}", content).replace("{cause}", ExceptionUtils.handleException(e))).queue();
+                            # Error
+                            ```ansi
+                            \u001B[0;31m឵឵{cause}
+                            ```
+                            """.replace("{content}", content).replace("{cause}", ExceptionUtils.handleException(e))).queue();
         }
     }
 
