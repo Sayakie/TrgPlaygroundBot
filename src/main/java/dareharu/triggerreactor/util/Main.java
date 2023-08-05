@@ -1,8 +1,11 @@
 package dareharu.triggerreactor.util;
 
+import com.google.inject.Guice;
+import com.google.inject.Module;
 import com.moandjiezana.toml.Toml;
 import dareharu.triggerreactor.PlaygroundBot;
 import dareharu.triggerreactor.config.Config;
+import dareharu.triggerreactor.module.DummyModule;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -12,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public final class Main {
@@ -21,11 +25,15 @@ public final class Main {
 
     private static PlaygroundBot bot;
 
+    public static PlaygroundBot current() {
+        return bot;
+    }
+
     public static void main(final String[] args) throws InterruptedException {
         final var file = new File("config.toml");
         if (!file.exists()) {
             try {
-                if (file.createNewFile()) {
+                if (!file.createNewFile()) {
                     throw new RuntimeException("Could not create config.toml file.");
                 }
             } catch (final IOException e) {
@@ -38,7 +46,11 @@ public final class Main {
             throw new IllegalStateException("Token must be specified.");
         }
 
-        bot = new PlaygroundBot(config.token);
+        final var modules = new Module[]{ new DummyModule() };
+        final var injector = Guice.createInjector(modules);
+
+        bot = injector.getInstance(PlaygroundBot.class);
+        bot.initJda(config.token);
 
         registerCommands();
         if (args.length == 1 && "--register-commands".equals(args[0])) {

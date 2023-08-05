@@ -1,17 +1,20 @@
 package dareharu.triggerreactor.command;
 
-import dareharu.triggerreactor.util.AnsiColorUtils;
-import dareharu.triggerreactor.util.ExceptionUtils;
-import dareharu.triggerreactor.util.PlaygroundInterpreterUtils;
-import dareharu.triggerreactor.util.PlaygroundTaskSupervisor;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Provides;
+import dareharu.triggerreactor.util.*;
+import io.github.wysohn.triggerreactor.core.main.IExceptionHandle;
+import io.github.wysohn.triggerreactor.core.manager.IGlobalVariableManager;
+import io.github.wysohn.triggerreactor.core.manager.js.IBackedMapProvider;
 import io.github.wysohn.triggerreactor.core.manager.trigger.share.CommonFunctions;
-import io.github.wysohn.triggerreactor.core.script.interpreter.Interpreter;
-import io.github.wysohn.triggerreactor.core.script.interpreter.InterpreterException;
+import io.github.wysohn.triggerreactor.core.script.interpreter.*;
 import io.github.wysohn.triggerreactor.core.script.lexer.Lexer;
 import io.github.wysohn.triggerreactor.core.script.lexer.LexerException;
 import io.github.wysohn.triggerreactor.core.script.parser.Node;
 import io.github.wysohn.triggerreactor.core.script.parser.Parser;
 import io.github.wysohn.triggerreactor.core.script.parser.ParserException;
+import io.github.wysohn.triggerreactor.core.script.wrapper.SelfReference;
 import io.github.wysohn.triggerreactor.tools.timings.Timings;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -49,43 +52,42 @@ public final class InterpreterCommand extends ListenerAdapter {
         }
 
         final var content = event.getValue("content").getAsString();
-        try (final var t = Timings.LIMBO) {
+        try (final var timing = Timings.LIMBO) {
             final var lexer = new Lexer(content, StandardCharsets.UTF_8);
             final var parser = new Parser(lexer);
 
             final var root = parser.parse(false);
-            final var interpreter = new Interpreter(root);
-            interpreter.setExecutorMap(PlaygroundInterpreterUtils.getExecutors());
-            interpreter.setPlaceholderMap(PlaygroundInterpreterUtils.getPlaceholders());
-            interpreter.setSelfReference(new CommonFunctions());
-            interpreter.setVars(new HashMap<>());
-            interpreter.setTaskSupervisor(PlaygroundTaskSupervisor.INSTANCE);
+            final var interpreter = InterpreterBuilder.start(Main.current().globalContext(), root).build();
 
             final var sb = new StringBuilder();
-            interpreter.startWithContext(sb, t);
+            final var localContext = new InterpreterLocalContext(timing);
+            localContext.setTriggerCause(sb);
+            interpreter.start(null, localContext);
 
-            final var output$raw = sb.isEmpty() ? "No output" : sb.toString();
-            final var output = AnsiColorUtils.bukkitColorToAnsiColor(output$raw);
+            final var result = interpreter.result(localContext);
+            final var output = sb.isEmpty()
+                ? result != null
+                    ? AnsiColorUtils.bukkitColorToAnsiColor(result.toString())
+                    : "No output"
+                : AnsiColorUtils.bukkitColorToAnsiColor(sb.substring(0, sb.length() - 1));
 
             event.reply("""
-                            # Input:
+                            ## :inbox_tray: Input:
                             ```js
                             {content}
                             ```
-
-                            # Output:
+                            ## :outbox_tray: Output:
                             ```ansi
                             {output}
                             ```
                             """.replace("{content}", content).replace("{output}", output)).queue();
-        } catch (final InterpreterException | ParserException | LexerException | IOException e) {
+        } catch (final Throwable e) {
             event.reply("""
-                            # Input:
+                            ## :inbox_tray: Input:
                             ```js
                             {content}
                             ```
-
-                            # Error
+                            ## :outbox_tray: Error:
                             ```ansi
                             \u001B[0;31m឵឵{cause}
                             ```

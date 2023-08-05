@@ -35,7 +35,9 @@ repositories {
 }
 
 dependencies {
+  shadow("javax.inject:javax.inject:1")
   shadow(fileTree("dir" to "lib", "include" to listOf("*.jar")))
+  shadow("com.google.guava:guava:32.1.2-jre")
   shadow("net.dv8tion:JDA:5.0.0-beta.12") {
     exclude(module = "opus-java")
   }
@@ -54,6 +56,10 @@ tasks {
 
   jar {
     manifest.from(theManifest)
+
+    exclude("META-INF/*.SF")
+    exclude("META-INF/*.DSA")
+    exclude("META-INF/*.RSA")
 
     finalizedBy(shadowJar)
   }
