@@ -4,11 +4,9 @@ import com.google.inject.Singleton;
 import dareharu.triggerreactor.util.Doubles;
 import dareharu.triggerreactor.util.Ints;
 import io.github.wysohn.triggerreactor.core.manager.js.IBackedMapProvider;
-import io.github.wysohn.triggerreactor.core.script.interpreter.Executor;
 import io.github.wysohn.triggerreactor.core.script.interpreter.Placeholder;
 import io.github.wysohn.triggerreactor.tools.CaseInsensitiveStringMap;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;

@@ -1,7 +1,6 @@
 package dareharu.triggerreactor.command;
 
 import dareharu.triggerreactor.util.ExceptionUtils;
-import io.github.wysohn.triggerreactor.core.script.Token;
 import io.github.wysohn.triggerreactor.core.script.lexer.Lexer;
 import io.github.wysohn.triggerreactor.core.script.lexer.LexerException;
 import io.github.wysohn.triggerreactor.core.script.parser.Node;

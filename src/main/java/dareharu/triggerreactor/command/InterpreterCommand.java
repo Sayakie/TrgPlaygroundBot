@@ -1,20 +1,13 @@
 package dareharu.triggerreactor.command;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Provides;
-import dareharu.triggerreactor.util.*;
-import io.github.wysohn.triggerreactor.core.main.IExceptionHandle;
-import io.github.wysohn.triggerreactor.core.manager.IGlobalVariableManager;
-import io.github.wysohn.triggerreactor.core.manager.js.IBackedMapProvider;
-import io.github.wysohn.triggerreactor.core.manager.trigger.share.CommonFunctions;
-import io.github.wysohn.triggerreactor.core.script.interpreter.*;
+import dareharu.triggerreactor.util.AnsiColorUtils;
+import dareharu.triggerreactor.util.ExceptionUtils;
+import dareharu.triggerreactor.util.Main;
+import io.github.wysohn.triggerreactor.core.script.interpreter.InterpreterBuilder;
+import io.github.wysohn.triggerreactor.core.script.interpreter.InterpreterLocalContext;
 import io.github.wysohn.triggerreactor.core.script.lexer.Lexer;
-import io.github.wysohn.triggerreactor.core.script.lexer.LexerException;
 import io.github.wysohn.triggerreactor.core.script.parser.Node;
 import io.github.wysohn.triggerreactor.core.script.parser.Parser;
-import io.github.wysohn.triggerreactor.core.script.parser.ParserException;
-import io.github.wysohn.triggerreactor.core.script.wrapper.SelfReference;
 import io.github.wysohn.triggerreactor.tools.timings.Timings;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -24,9 +17,7 @@ import net.dv8tion.jda.api.interactions.components.text.TextInput;
 import net.dv8tion.jda.api.interactions.components.text.TextInputStyle;
 import net.dv8tion.jda.api.interactions.modals.Modal;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 
 public final class InterpreterCommand extends ListenerAdapter {
 
