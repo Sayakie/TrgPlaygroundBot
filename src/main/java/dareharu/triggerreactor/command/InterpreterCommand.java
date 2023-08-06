@@ -91,7 +91,6 @@ public final class InterpreterCommand extends ListenerAdapter {
                             ```
                             """.replace("{content}", content).replace("{output}", output)).queue();
         } catch (final Throwable e) {
-            Bukkit.getLogger().severe(e.getMessage());
             e.printStackTrace();
 
             event.reply("""
