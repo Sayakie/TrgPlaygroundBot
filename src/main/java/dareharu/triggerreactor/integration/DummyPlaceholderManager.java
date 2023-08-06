@@ -6,15 +6,12 @@ import dareharu.triggerreactor.util.Ints;
 import io.github.wysohn.triggerreactor.core.manager.js.IBackedMapProvider;
 import io.github.wysohn.triggerreactor.core.script.interpreter.Placeholder;
 import io.github.wysohn.triggerreactor.tools.CaseInsensitiveStringMap;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -33,9 +30,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static dareharu.triggerreactor.util.LocalVariableUtils.requireEvent;
 import static dareharu.triggerreactor.util.LocalVariableUtils.requirePlayer;
-import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.Component.empty;
+import static net.kyori.adventure.text.Component.newline;
 
 @Singleton
+@SuppressWarnings("deprecation")
 public final class DummyPlaceholderManager implements IBackedMapProvider<Placeholder> {
 
     private static final Map<String, Placeholder> PLACEHOLDERS = new CaseInsensitiveStringMap<>();
@@ -67,6 +66,10 @@ public final class DummyPlaceholderManager implements IBackedMapProvider<Placeho
                 x = player.getLocation().getBlockX();
                 y = player.getLocation().getBlockY();
                 z = player.getLocation().getBlockZ();
+            }
+
+            if (world == null) {
+                return "air";
             }
 
             return world.getBlockAt(x, y, z).getType().name().toLowerCase(Locale.ENGLISH);
@@ -225,7 +228,10 @@ public final class DummyPlaceholderManager implements IBackedMapProvider<Placeho
         PLACEHOLDERS.put("killername", (timing, vars, ctx, args) -> {
             final var event = args.length == 1 ? args[0] : requireEvent(vars);
             if (event instanceof PlayerDeathEvent playerDeathEvent) {
-                return playerDeathEvent.getEntity().getKiller().getName();
+                final var slayer = playerDeathEvent.getEntity().getKiller();
+                if (slayer != null) {
+                    return slayer.getName();
+                }
             }
 
             return null;
@@ -239,9 +245,21 @@ public final class DummyPlaceholderManager implements IBackedMapProvider<Placeho
                 final var lores = itemStack.lore();
                 if (lores == null) {
                     return null;
+                } else if (lores.size() == 0) {
+                    return empty();
+                } else if (lores.size() == 1) {
+                    return lores.get(0);
                 }
 
-                final var linedUpLores = lores.stream().reduce((Component) text(), (acc, cur) -> acc.append(cur).append(text("\n")));
+                var linedUpLores = lores.get(0);
+                for (int i = 1; i < lores.size(); i++) {
+                    linedUpLores = linedUpLores.append(lores.get(i));
+
+                    if (i != lores.size() - 1) {
+                        linedUpLores = linedUpLores.append(newline());
+                    }
+                }
+
                 return LegacyComponentSerializer.legacySection().serialize(linedUpLores);
             }
 

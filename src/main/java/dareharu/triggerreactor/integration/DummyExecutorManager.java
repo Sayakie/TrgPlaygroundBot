@@ -32,6 +32,7 @@ import static dareharu.triggerreactor.util.LocalVariableUtils.requireEvent;
 import static dareharu.triggerreactor.util.LocalVariableUtils.requirePlayer;
 
 @Singleton
+@SuppressWarnings("deprecation")
 public final class DummyExecutorManager implements IBackedMapProvider<Executor> {
 
     private static final Executor EMPTY_EXEUCTOR = (timing, vars, ctx, args) -> null;
@@ -314,21 +315,27 @@ public final class DummyExecutorManager implements IBackedMapProvider<Executor> 
             final var player = requirePlayer(vars);
             final @Nullable Location location;
             final @Nullable EntityType entityType;
-            if (args.length == 1 && args[0] instanceof EntityType entityTypeFromArg) {
-                location = player.getLocation();
-                entityType = entityTypeFromArg;
-            } else if (args.length == 1 && args[0] instanceof String s && !s.isBlank()) {
-                location = player.getLocation();
-                entityType = EntityType.valueOf(s);
-            } else if (args.length == 2 && args[0] instanceof Location locationFromArg && args[1] instanceof EntityType entityTypeFromArg) {
-                location = locationFromArg;
-                entityType = entityTypeFromArg;
-            } else if (args.length == 2 && args[0] instanceof Location locationFromArg && args[1] instanceof String s && !s.isBlank()) {
-                location = locationFromArg;
-                entityType = EntityType.valueOf(s);
-            } else {
-                location = null;
-                entityType = null;
+            switch (args[0]) {
+                case EntityType entityTypeFromArg && args.length == 1 -> {
+                    location = player.getLocation();
+                    entityType = entityTypeFromArg;
+                }
+                case String s && args.length == 1 && !s.isBlank() -> {
+                    location = player.getLocation();
+                    entityType = EntityType.valueOf(s);
+                }
+                case Location locationFromArg && args.length == 2 && args[1] instanceof EntityType entityTypeFromArg -> {
+                    location = locationFromArg;
+                    entityType = entityTypeFromArg;
+                }
+                case Location locationFromArg && args.length == 2 && args[1] instanceof String s && !s.isBlank() -> {
+                    location = locationFromArg;
+                    entityType = EntityType.valueOf(s);
+                }
+                case null, default -> {
+                    location = null;
+                    entityType = null;
+                }
             }
 
             if (location != null && entityType != null && entityType.isSpawnable()) {
