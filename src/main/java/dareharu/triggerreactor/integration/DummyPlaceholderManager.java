@@ -31,6 +31,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static dareharu.triggerreactor.util.LocalVariableUtils.requireEvent;
+import static dareharu.triggerreactor.util.LocalVariableUtils.requirePlayer;
 import static net.kyori.adventure.text.Component.text;
 
 @Singleton
@@ -359,14 +361,6 @@ public final class DummyPlaceholderManager implements IBackedMapProvider<Placeho
     @Override
     public String toString() {
         return "PlaygroundPlaceholderManager";
-    }
-
-    private static Player requirePlayer(final Map<?, ?> vars) {
-        return (Player) vars.get("player");
-    }
-
-    private static Event requireEvent(final Map<?, ?> vars) {
-        return (Event) vars.get("event");
     }
 
 }
