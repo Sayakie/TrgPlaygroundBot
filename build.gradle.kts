@@ -55,6 +55,7 @@ java {
 tasks {
   withType<JavaCompile> {
     options.encoding = "UTF-8"
+    options.compilerArgs.add("--enable-preview")
   }
 
   jar {
@@ -77,4 +78,6 @@ tasks {
 
 tasks.test {
   useJUnitPlatform()
+
+  jvmArgs(listOf("--enable-preview"))
 }
