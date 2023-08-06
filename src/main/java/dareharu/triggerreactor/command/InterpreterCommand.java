@@ -133,7 +133,7 @@ public final class InterpreterCommand extends ListenerAdapter {
         localContext.setVar("event", event);
         localContext.setVar("player", player);
         localContext.setVar("item", itemStack);
-        localContext.setVar("inventory", player.getInventory());
+        localContext.setVar("inventory", inventory);
         localContext.setVar("trigger", "click");
         localContext.setVar("slot", RANDOM.nextInt(1, 55));
         localContext.setVar("from", new SimpleLocation("world", 0, 0, 0));
