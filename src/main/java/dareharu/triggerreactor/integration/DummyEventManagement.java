@@ -21,4 +21,9 @@ public final class DummyEventManagement implements IEventManagement {
     @Override
     public void callEvent(final IEvent event) {}
 
+    @Override
+    public String toString() {
+        return "PlaygroundEventManagement";
+    }
+
 }

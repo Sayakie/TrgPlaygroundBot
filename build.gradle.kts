@@ -28,6 +28,7 @@ val theManifest = the<JavaPluginExtension>().manifest {
 
 repositories {
   mavenCentral()
+  maven("https://repo.papermc.io/repository/maven-public/")
 
   flatDir {
     dirs = setOf(rootDir.resolve("lib"))
@@ -35,6 +36,8 @@ repositories {
 }
 
 dependencies {
+  shadow("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
+  shadow("com.github.seeseemelk:MockBukkit-v1.20:3.9.0")
   shadow("javax.inject:javax.inject:1")
   shadow(fileTree("dir" to "lib", "include" to listOf("*.jar")))
   shadow("com.google.guava:guava:32.1.2-jre")

@@ -14,6 +14,7 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class Main {
 
@@ -41,23 +42,32 @@ public final class Main {
         final var config = new Toml().read(file).to(Config.class);
         if (config.token == null || config.token.isEmpty()) {
             throw new IllegalStateException("Token must be specified.");
+        } else if (config.channels == null || config.channels.isEmpty()) {
+            throw new IllegalStateException("Channels must be specified. Each channel can be split by ','.");
         }
 
         final var modules = new Module[]{ new DummyModule() };
         final var injector = Guice.createInjector(modules);
 
         bot = injector.getInstance(PlaygroundBot.class);
+        bot.initBukkit();
         bot.initJda(config.token);
 
-        registerCommands();
-        if (args.length == 1 && "--register-commands".equals(args[0])) {
-            registerCommands();
-            bot.release();
+        if (args.length > 0) {
+            System.out.println("Accepted arguments: " + Arrays.toString(args));
+
+            switch (args[0]) {
+                case "--register-commands" -> registerCommands(config);
+                case "--register-commands-only" -> {
+                    registerCommands(config);
+                    bot.release();
+                }
+                case "--unregister-commands" -> unregisterCommands(config);
+            }
         }
     }
 
-    private static void registerCommands() {
-
+    private static void registerCommands(final Config config) {
         final var commands = new ArrayList<SlashCommandData>();
         commands.add(Commands.slash("lexer", "Open a lexer playground")
                          .setDefaultPermissions(DefaultMemberPermissions.DISABLED));
@@ -67,19 +77,41 @@ public final class Main {
         commands.add(Commands.slash("interpreter", "Open a interpreter playground")
                          .setDefaultPermissions(DefaultMemberPermissions.DISABLED));
 
-        {
-            final var guild = bot.jda().getGuildById(TRIGGER_REACTOR_CHANNEL_ID);
+        final String[] channels = config.channels.split(",");
+
+        for (final var channel$raw : channels) {
+            final var channel = channel$raw.trim();
+
+            final var guild = bot.jda().getGuildById(channel);
             if (guild == null) {
+                System.out.println(String.format("Cannot find any guild by id %s", channel));
                 return;
             }
+
+            System.out.println(String.format("Adding all commands into guild %s", guild.getName()));
             guild.updateCommands().addCommands(commands).queue();
         }
-        {
-            final var guild = bot.jda().getGuildById(TEST_CHANNEL_ID);
+    }
+
+    private static void unregisterCommands(final Config config) {
+        final String[] channels = config.channels.split(",");
+
+        for (final var channel$raw : channels) {
+            final var channel = channel$raw.trim();
+
+            final var guild = bot.jda().getGuildById(channel);
             if (guild == null) {
+                System.out.println(String.format("Cannot find any guild by id %s", channel));
                 return;
             }
-            guild.updateCommands().addCommands(commands).queue();
+
+            System.out.println(String.format("Deleting all commands from guild %s", guild.getName()));
+            final var commands = guild.retrieveCommands().complete();
+            commands.forEach(command -> {
+                guild.deleteCommandById(command.getId()).queue();
+
+                System.out.println(String.format("Deleted command: %s", command.getFullCommandName()));
+            });
         }
     }
 

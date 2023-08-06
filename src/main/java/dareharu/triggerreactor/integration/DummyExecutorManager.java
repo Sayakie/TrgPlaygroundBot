@@ -94,4 +94,9 @@ public final class DummyExecutorManager implements IBackedMapProvider<Executor> 
         return EXECUTORS;
     }
 
+    @Override
+    public String toString() {
+        return "PlaygroundExecutorManager";
+    }
+
 }

@@ -115,4 +115,9 @@ public final class DummyPlaceholderManager implements IBackedMapProvider<Placeho
         return PLACEHOLDERS;
     }
 
+    @Override
+    public String toString() {
+        return "PlaygroundPlaceholderManager";
+    }
+
 }

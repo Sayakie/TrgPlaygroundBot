@@ -37,6 +37,11 @@ public final class DummyTaskSupervisor implements TaskSupervisor {
         return thread;
     }
 
+    @Override
+    public String toString() {
+        return "PlaygroundTaskSupervisor";
+    }
+
     private <T> Future<T> immediate(final Callable<T> task) {
         return new Future<>() {
             private T result = null;

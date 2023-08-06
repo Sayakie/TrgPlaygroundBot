@@ -4,7 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ac52b82c-10cb-4c95-b32b-25dc0dbf1eb0" name="Changes" comment="feat: support 3.4 or above version" />
+    <list default="true" id="ac52b82c-10cb-4c95-b32b-25dc0dbf1eb0" name="Changes" comment="style: tidy up unused imports">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/PlaygroundBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/PlaygroundBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/command/InterpreterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/command/InterpreterCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/config/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyCommandSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyCommandSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyEventManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyEventManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyEventRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyEventRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyExecutorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyExecutorManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyGameManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyGameManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyGlobalVariableManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyGlobalVariableManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyInventoryHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyInventoryHandle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyPlaceholderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyPlaceholderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyPluginManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyPluginManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyTaskSupervisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/integration/DummyTaskSupervisor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/module/DummyModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/module/DummyModule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/util/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dareharu/triggerreactor/util/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,20 +95,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Sayakie/Desktop/Workspace/@dareharu/TrgPlaygroundBot&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.16363636&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.1636877&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Sayakie/Desktop/Workspace/@dareharu/TrgPlaygroundBot",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.16363636",
+    "project.structure.side.proportion": "0.1636877",
+    "settings.editor.selected.configurable": "Errors",
+    "settings.editor.splitter.proportion": "0.28151262"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\looser\Desktop\Jimin\Workspace\@DareHaru\TrgPlaygroundBot\lib" />
@@ -226,12 +248,25 @@
       <option name="project" value="LOCAL" />
       <updated>1691236276863</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="style: tidy up unused imports">
+      <option name="closed" value="true" />
+      <created>1691236674673</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1691236674673</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: convert bukkit colors" />
     <MESSAGE value="feat: support 3.4 or above version" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: support 3.4 or above version" />
+    <MESSAGE value="style: tidy up unused imports" />
+    <option name="LAST_COMMIT_MESSAGE" value="style: tidy up unused imports" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

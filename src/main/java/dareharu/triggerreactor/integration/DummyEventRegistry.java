@@ -34,4 +34,9 @@ public final class DummyEventRegistry implements IEventRegistry {
         return Collections.emptyList();
     }
 
+    @Override
+    public String toString() {
+        return "PlaygroundEventRegistry";
+    }
+
 }

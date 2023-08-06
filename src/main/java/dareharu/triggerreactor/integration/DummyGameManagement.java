@@ -39,4 +39,9 @@ public final class DummyGameManagement implements IGameManagement {
     @Override
     public void showGlowStones(final ICommandSender sender, Set<Map.Entry<SimpleLocation, Trigger>> locationAssociatedTriggers) {}
 
+    @Override
+    public String toString() {
+        return "PlaygroundGameManagement";
+    }
+
 }

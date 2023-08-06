@@ -4,4 +4,6 @@ public final class Config {
 
     public String token;
 
+    public String channels;
+
 }

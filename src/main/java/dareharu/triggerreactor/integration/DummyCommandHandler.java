@@ -23,4 +23,9 @@ public final class DummyCommandHandler implements ICommandHandler {
 
     @Override
     public void sync() {}
+
+    @Override
+    public String toString() {
+        return "PlaygroundCommandHandler";
+    }
 }

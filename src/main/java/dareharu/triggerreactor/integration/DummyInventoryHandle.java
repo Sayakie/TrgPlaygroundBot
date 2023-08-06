@@ -51,4 +51,9 @@ public final class DummyInventoryHandle implements IInventoryHandle {
     @Override
     public void setItemTitle(final IItemStack itemStack, final String title) {}
 
+    @Override
+    public String toString() {
+        return "PlaygroundInventoryHandle";
+    }
+
 }

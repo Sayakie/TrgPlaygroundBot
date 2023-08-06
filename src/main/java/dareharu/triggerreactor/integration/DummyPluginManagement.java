@@ -86,4 +86,9 @@ public final class DummyPluginManagement implements IPluginManagement {
         return Collections.emptyMap();
     }
 
+    @Override
+    public String toString() {
+        return "PlaygroundPluginManagement";
+    }
+
 }

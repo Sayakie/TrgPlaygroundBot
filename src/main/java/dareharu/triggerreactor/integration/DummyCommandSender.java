@@ -33,7 +33,7 @@ public final class DummyCommandSender implements ICommandSender {
 
     @Override
     public String toString() {
-        return "DummyCommandSender";
+        return "PlaygroundCommandSender";
     }
 
 }

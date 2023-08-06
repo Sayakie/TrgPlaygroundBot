@@ -1,9 +1,11 @@
 package dareharu.triggerreactor.module;
 
+import be.seeseemelk.mockbukkit.MockBukkit;
 import com.google.inject.AbstractModule;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import dareharu.triggerreactor.integration.*;
+import dareharu.triggerreactor.integration.bukkit.DummyServer;
 import io.github.wysohn.triggerreactor.core.bridge.ICommandSender;
 import io.github.wysohn.triggerreactor.core.main.*;
 import io.github.wysohn.triggerreactor.core.main.command.ICommandHandler;
@@ -14,11 +16,15 @@ import io.github.wysohn.triggerreactor.core.script.interpreter.Executor;
 import io.github.wysohn.triggerreactor.core.script.interpreter.Placeholder;
 import io.github.wysohn.triggerreactor.core.script.interpreter.TaskSupervisor;
 import io.github.wysohn.triggerreactor.core.script.wrapper.SelfReference;
+import org.bukkit.Server;
 
 public final class DummyModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        MockBukkit.mock(new DummyServer());
+        bind(Server.class).to(DummyServer.class);
+
         bind(ICommandSender.class).to(DummyCommandSender.class);
         bind(ICommandHandler.class).to(DummyCommandHandler.class);
         bind(IEventManagement.class).to(DummyEventManagement.class);

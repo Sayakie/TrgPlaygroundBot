@@ -15,4 +15,9 @@ public final class DummyGlobalVariableManager implements IGlobalVariableManager 
         return globalVariables;
     }
 
+    @Override
+    public String toString() {
+        return "PlaygroundGlobalVariableManager";
+    }
+
 }
