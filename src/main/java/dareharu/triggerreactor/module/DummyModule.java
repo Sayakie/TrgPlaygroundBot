@@ -6,12 +6,15 @@ import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import dareharu.triggerreactor.integration.*;
 import dareharu.triggerreactor.integration.bukkit.DummyServer;
+import io.github.wysohn.triggerreactor.bukkit.manager.trigger.share.CommonFunctions;
 import io.github.wysohn.triggerreactor.core.bridge.ICommandSender;
 import io.github.wysohn.triggerreactor.core.main.*;
 import io.github.wysohn.triggerreactor.core.main.command.ICommandHandler;
 import io.github.wysohn.triggerreactor.core.manager.IGlobalVariableManager;
 import io.github.wysohn.triggerreactor.core.manager.js.IBackedMapProvider;
-import io.github.wysohn.triggerreactor.core.manager.trigger.share.CommonFunctions;
+import io.github.wysohn.triggerreactor.core.manager.trigger.ITriggerDependencyFacade;
+import io.github.wysohn.triggerreactor.core.manager.trigger.TriggerDependencyFacade;
+import io.github.wysohn.triggerreactor.core.module.APISupportModule;
 import io.github.wysohn.triggerreactor.core.script.interpreter.Executor;
 import io.github.wysohn.triggerreactor.core.script.interpreter.Placeholder;
 import io.github.wysohn.triggerreactor.core.script.interpreter.TaskSupervisor;
@@ -37,6 +40,12 @@ public final class DummyModule extends AbstractModule {
         bind(SelfReference.class).to(CommonFunctions.class);
 
         bind(IExceptionHandle.class).to(ExceptionHandle.class);
+
+        // AreaTriggerManager start
+        install(new APISupportModule());
+        install(new DummyAreaTriggerModule());
+        bind(ITriggerDependencyFacade.class).to(TriggerDependencyFacade.class);
+        // AreaTriggerManager end
 
         bind(Key.get(new TypeLiteral<IBackedMapProvider<Executor>>() {})).to(DummyExecutorManager.class);
         bind(Key.get(new TypeLiteral<IBackedMapProvider<Placeholder>>() {})).to(DummyPlaceholderManager.class);
