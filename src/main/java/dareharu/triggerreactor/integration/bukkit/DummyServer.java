@@ -27,6 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Merchant;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.loot.LootTable;
+import org.bukkit.map.MapCursor;
 import org.bukkit.packs.DataPackManager;
 import org.bukkit.potion.PotionBrewer;
 import org.bukkit.structure.StructureManager;
@@ -221,7 +222,31 @@ public final class DummyServer extends ServerMock implements Server {
     }
 
     @Override
-    public void reloadData() {}
+    public @Nullable ItemStack createExplorerMap(
+        final @NotNull World world,
+        final @NotNull Location location,
+        final @NotNull org.bukkit.generator.structure.StructureType structureType,
+        final @NotNull MapCursor.Type mapIcon,
+        final int radius,
+        final boolean findUnexplored
+    ) {
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public void reloadData() {
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public void updateResources() {
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public void updateRecipes() {
+        throw new UnimplementedOperationException();
+    }
 
     @Override
     public @NotNull Logger getLogger() {
@@ -232,6 +257,11 @@ public final class DummyServer extends ServerMock implements Server {
 
     @Override
     public void savePlayers() {
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public boolean addRecipe(@Nullable Recipe recipe, boolean resendRecipes) {
         throw new UnimplementedOperationException();
     }
 
@@ -251,6 +281,11 @@ public final class DummyServer extends ServerMock implements Server {
 
     @Override
     public void resetRecipes() {
+        throw new UnimplementedOperationException();
+    }
+
+    @Override
+    public boolean removeRecipe(final @NotNull NamespacedKey key, final boolean resendRecipes) {
         throw new UnimplementedOperationException();
     }
 

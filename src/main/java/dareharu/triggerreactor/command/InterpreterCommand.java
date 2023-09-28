@@ -112,8 +112,6 @@ public final class InterpreterCommand extends ListenerAdapter {
 
     @SuppressWarnings("deprecation")
     private static Runnable initLocalContext(final InterpreterLocalContext localContext, final Object cause) {
-        localContext.setTriggerCause(cause);
-
         final DummyServer server = (DummyServer) Main.current().server();
         final var player = new PlayerMock(server, "TriggerReactor", Constants.uniqueId());
 

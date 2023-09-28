@@ -4,10 +4,14 @@ import be.seeseemelk.mockbukkit.MockBukkit;
 import com.google.inject.AbstractModule;
 import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import dareharu.triggerreactor.integration.*;
 import dareharu.triggerreactor.integration.bukkit.DummyServer;
 import io.github.wysohn.triggerreactor.bukkit.manager.trigger.share.CommonFunctions;
 import io.github.wysohn.triggerreactor.core.bridge.ICommandSender;
+import io.github.wysohn.triggerreactor.core.config.source.GsonConfigSource;
+import io.github.wysohn.triggerreactor.core.config.source.IConfigSource;
+import io.github.wysohn.triggerreactor.core.config.source.IConfigSourceFactory;
 import io.github.wysohn.triggerreactor.core.main.*;
 import io.github.wysohn.triggerreactor.core.main.command.ICommandHandler;
 import io.github.wysohn.triggerreactor.core.manager.IGlobalVariableManager;
@@ -44,6 +48,7 @@ public final class DummyModule extends AbstractModule {
         // AreaTriggerManager start
         install(new APISupportModule());
         install(new DummyAreaTriggerModule());
+        install((new FactoryModuleBuilder()).implement(IConfigSource.class, GsonConfigSource.class).build(IConfigSourceFactory.class));
         bind(ITriggerDependencyFacade.class).to(TriggerDependencyFacade.class);
         // AreaTriggerManager end
 
